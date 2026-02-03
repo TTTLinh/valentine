@@ -1,0 +1,516 @@
+:root{
+  --bg1:#0b1020;
+  --bg2:#1b0b1b;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.7);
+  --heart:#ff3b6b;
+  --heart2:#ff79a6;
+  --shadow: rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text);
+  background: radial-gradient(1200px 600px at 20% 10%, #2a1b52 0%, transparent 60%),
+              radial-gradient(900px 500px at 80% 30%, #51213a 0%, transparent 55%),
+              linear-gradient(135deg, var(--bg1), var(--bg2));
+  overflow:hidden;
+}
+
+.wrap{
+  height: 100%;
+  width: 100%;
+  padding: 24px;
+}
+
+h1{
+  margin:10px 0 6px;
+  font-size: clamp(26px, 4vw, 44px);
+  letter-spacing:.5px;
+  
+}
+
+
+
+/* Sound toggle button */
+.sound-toggle{
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08);
+  color: var(--text);
+  cursor: pointer;
+  display:grid;
+  place-items:center;
+  box-shadow: 0 10px 30px var(--shadow);
+  backdrop-filter: blur(10px);
+}
+.sound-toggle:active{ transform: scale(.98); }
+.sound-toggle .icon{ font-size: 20px; }
+
+/* Flying hearts */
+.fly{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events:none;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+}
+
+.fly .char{
+  font-size: var(--size, 18px);
+  color: var(--c, #ff3b6b);
+  opacity: .95;
+  text-shadow: 0 10px 20px rgba(255,59,107,.25);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .heart.pulsing{ animation:none; }
+}
+.letter-fall{
+  display:inline-block;
+  text-decoration:none;
+  animation: fallDown 1.1s ease-out both;
+}
+@keyframes fallDown{
+  0%{ transform: translateY(-70vh) scale(.95); opacity:0; }
+  100%{ transform: translateY(0) scale(1); opacity:1; }
+}
+
+/* Phong thư */
+.envelope{
+  position: relative;
+  width: 300px;
+  height: 90px;
+  border-radius: 0px;
+  background: rgba(245, 82, 237, 0.1);
+  border: 1px solid rgba(243, 22, 195, 0.815);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 40px rgba(192, 56, 255, 0.25);
+  overflow:visible;
+}
+
+/* Nắp thư (mở khi hover) */
+.envelope .flap{
+   transform: rotateX(0deg);   
+  backface-visibility: hidden;
+  position:absolute;
+  left:0; top:0;
+  width:0; height:0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-top: 75px solid rgba(255, 194, 240, 0.70);
+  transform-origin: top center;
+  transition: transform .55s ease;
+  z-index: 6;
+}
+.envelope .flap::after{
+  content:"";
+  position:absolute;
+  left:-150px;
+  top:-75px;
+  width: 300px;
+  height: 75px;
+ 
+}
+
+/* Thân thư (tam giác 2 bên + đáy) */
+.envelope .body{
+  position:absolute;
+  inset:0;
+  z-index: 3;
+}
+.envelope .body::before{
+  content:"";
+  position:absolute; left:0; top:0;
+  width:0; height:0;
+  border-left: 150px solid rgba(248, 178, 219, 0.795);
+  border-top: 75px solid transparent;
+  border-bottom: 65px solid transparent;
+}
+.envelope .body::after{
+  content:"";
+  position:absolute; right:0; top:0;
+  width:0; height:0;
+  border-top: 75px solid transparent;
+  border-right: 150px solid rgba(248, 178, 219, 0.795);
+  border-bottom: 65px solid transparent;
+}
+.envelope::after{
+  content:"";
+  position:absolute; left:0; top:75px;
+  width:0; height:0;
+  bottom:0; 
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-bottom: 65px solid rgba(248, 178, 219, 0.795);
+   z-index: 4;
+}
+
+/* Giấy thư (trồi lên khi hover) */
+.envelope .paper{
+  position:absolute;
+  left: 14px; right:14px;
+  bottom: 10px;
+  height: 120px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.95);
+  transform: translateY(75px);
+  transition: transform .55s ease;
+  z-index: 8;
+  padding: 14px 14px 18px;
+  transform: translateY(60px);
+  z-index: 1;
+}
+
+/* Dòng chữ giả lập */
+.envelope .paper .line{
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.08);
+  margin: 9px 0;
+}
+.envelope .paper .line.short{ width: 65%; }
+
+/* Seal */
+.envelope .paper .seal{
+  position:absolute;
+  right: 12px;
+  bottom: 10px;
+  width: 30px; height: 30px;
+  border-radius: 999px;
+  display:grid; place-items:center;
+  color:#6a73ec;
+  background: linear-gradient(135deg, rgba(255,59,107,.95), rgba(255,121,166,.85));
+  box-shadow: 0 10px 20px rgba(255,59,107,.25);
+}
+
+/* Hover: mở nắp + kéo giấy lên */
+.letter-fall:hover .flap{
+  transform: rotateX(165deg);
+}
+.letter-fall:hover .paper{
+  transform: translateY(-10px);
+}
+
+/* Nhấn click */
+.letter-fall:active{
+  transform: scale(.99);
+}
+.floating-heart{
+  position: fixed;
+  left: 0;
+  top: 100%;
+  font-size: var(--size, 18px);
+  color: var(--color, #ff5fa2);
+  opacity: 0.85;
+  pointer-events: none; /* không cản click */
+  animation: floatUp linear forwards;
+  filter: drop-shadow(0 6px 10px rgba(255,90,150,.35));
+}
+
+@keyframes floatUp{
+  0%{
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 0;
+  }
+  10%{ opacity: 1; }
+  100%{
+    transform: translateX(var(--x)) translateY(-120vh) scale(1.4);
+    opacity: 0;
+  }
+}
+/* ===== Top GIF ===== */
+.top-gif{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  pointer-events: none; /* không cản click */
+}
+
+.top-gif img{
+  width: 230px;
+  height: 170px;        
+  max-width: 200%;
+  object-fit: cover;    
+  border-radius: 50%;   
+
+  animation: floatGif 3.5s ease-in-out infinite;
+  display: block;
+  border: none;
+  outline: none;
+   border: 3px solid rgba(255, 150, 200, .6);
+  box-shadow: 0 0 25px rgba(255, 120, 180, .5);
+}
+
+/* GIF lơ lửng nhẹ */
+@keyframes floatGif{
+  0%{ transform: translateY(0); }
+  50%{ transform: translateY(-10px); }
+  100%{ transform: translateY(0); }
+}
+/* ===== Burst effect (heart + text) ===== */
+.burst-item{
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: burstFly linear forwards;
+  filter: drop-shadow(0 6px 12px rgba(255,80,150,.35));
+}
+
+.burst-heart{
+  font-size: var(--size, 18px);
+  color: var(--color, #ff4f9a);
+}
+
+.burst-text{
+  font-size: var(--size, 14px);
+  font-weight: 600;
+  color: var(--color, #ff4f9a);
+  white-space: nowrap;
+}
+
+@keyframes burstFly{
+  0%{
+    transform: translate(0,0) scale(0.8);
+    opacity: 1;
+  }
+  100%{
+    transform: translate(var(--x), var(--y)) scale(1.4);
+    opacity: 0;
+  }
+}
+.heart-burst-layer{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.heart-particle{
+  position: absolute;
+  will-change: transform, opacity;
+  animation: flyUp 900ms ease-out forwards;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.25));
+}
+
+@keyframes flyUp{
+  0%   { transform: translate(0,0) scale(.9); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(1.2); opacity: 0; }
+}
+
+.love-particle{
+  font-weight: 700;
+  white-space: nowrap;
+  color: #ff4f9a; 
+  text-shadow: 0 6px 14px rgba(255,79,154,.45);
+}
+
+.page{
+  display: none;
+  min-height: 100vh;
+}
+
+.page.active{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+#page1.active{
+  justify-content: space-between;
+  padding: 28px 0;
+}
+#page1 h3{
+  margin-bottom: 180px; 
+}
+
+
+#page2.active{
+  justify-content: center;
+  gap: 12px;
+}
+
+.flip-wrap{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* THIỆP DỌC TO HƠN */
+.flip-card{
+  width:450px;
+  height:600px;
+  max-width:92vw;
+  perspective:1200px;
+  cursor:pointer;
+}
+
+.flip-inner{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .9s ease;
+}
+
+/* KHI MỞ */
+.flip-card.open .flip-inner{
+  transform:rotateY(180deg);
+}
+
+.flip-front, .flip-back{
+  position:absolute;
+  inset:0;
+  border-radius:22px;
+  overflow:hidden;
+  backface-visibility:hidden;
+  box-shadow:0 18px 45px rgba(0,0,0,.28);
+}
+
+/* MẶT TRƯỚC */
+.flip-front{
+  background:linear-gradient(135deg,#ff3b6b,#ff88b3);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:26px;
+}
+
+.front-content .heart{
+  font-size:54px;
+  margin-bottom:10px;
+  animation:pulse 1.4s infinite;
+}
+
+.front-content h2{
+  margin:8px 0 6px;
+  font-size:26px;
+}
+
+.front-content p{
+  margin:0;
+  opacity:.9;
+}
+
+/* MẶT SAU (ẢNH TRÊN - THƯ DƯỚI) */
+.flip-back{
+  background:#fff;
+  transform:rotateY(180deg);
+  display:flex;
+  flex-direction:column;
+}
+
+/* phần ảnh */
+.back-image{
+  height:55%;
+  width:100%;
+  overflow:hidden;
+}
+
+.back-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* phần thư */
+.back-letter{
+  height:45%;
+  padding:18px 20px 22px;
+  color:#333;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:10px;
+}
+
+.back-letter h3{
+  margin:0;
+  color:#ff3b6b;
+  font-size:20px;
+}
+
+.back-letter p{
+  margin:0;
+  line-height:1.6;
+  font-size:15px;
+}
+
+/* tim đập */
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+.slideshow{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+
+.slideshow .slide{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+
+.slideshow .slide.active{
+  opacity:1;
+}
+
+.type-cursor::after{
+  content:"|";
+  margin-left:2px;
+  animation:blinkCursor 1s infinite;
+}
+
+@keyframes blinkCursor{
+  0%,100%{opacity:1}
+  50%{opacity:0}
+}
+.signature{
+  margin-top:12px;
+  text-align:right;
+  opacity:0;
+  transform:translateY(10px);
+  transition:all .8s ease;
+}
+
+.signature.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.sign-text{
+  font-style:italic;
+  color:#666;
+  font-size:14px;
+}
+
+.sign-name{
+  font-family: 'Brush Script MT', 'Segoe Script', cursive;
+  font-size:22px;
+  color:#ff3b6b;
+}

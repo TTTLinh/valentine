@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine's Day</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <audio id="bgm" autoplay loop muted preload="auto">
+        <source src="data/audio.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button id="soundToggle" class="sound-toggle" aria-label="Toggle sound" title="Sound">
+        <span class="icon" id="soundIcon">🔇</span>
+    </button>
+    <main class="wrap">
+        <section id="page1" class="page active">
+            <h1>Happy Valentine's Day!</h1>
+            <!-- GIF động phía trên -->
+            <div class="top-gif">
+                <img src="https://i.pinimg.com/originals/c2/42/c6/c242c62d5c0b48eb7a8c6daf8bbb5a28.gif"
+                    alt="Love animation">
+            </div>
+            <div class="heart-wrap">
+                <a id="openLetter" class="letter-fall" href="valentine1.html" aria-label="Open the letter">
+                    <div class="envelope">
+                        <div class="flap"></div>
+                        <div class="body"></div>
+                        <div class="paper">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line short"></div>
+                            <div class="seal">♥</div>
+                        </div>
+                    </div>
+                </a>
+                <div id="loveText" class="love-text">❤</div>
+                <div id="heartBurstLayer" class="heart-burst-layer" aria-hidden="true"></div>
+            </div>
+            <h3>💌 Thư gửi anh bé của em</h3>
+        </section>
+        <section id="page2" class="page">
+
+
+            <div class="flip-wrap">
+                <div class="flip-card" id="flipCard">
+                    <div class="flip-inner">
+
+                        <!-- MẶT TRƯỚC -->
+                        <div class="flip-front">
+                            <div class="front-content">
+                                <div class="heart">💖</div>
+                                <h2>Nhấn để mở</h2>
+                                <p>Thiệp dành cho anh bé của em</p>
+                            </div>
+                        </div>
+
+                        <!-- MẶT SAU -->
+                        <div class="flip-back">
+                            <div class="back-image">
+                                <div class="slideshow" id="slideshow">
+                                    <img class="slide active" src="data/1.jpg" alt="slide 1">
+                                    <video class="slide" src="data/v1.mp4" muted playsinline preload="metadata">
+                                    </video>
+                                    <img class="slide" src="data/2.jpg" alt="slide 2">
+                                    <video class="slide" src="data/v3.mp4" muted playsinline preload="metadata">
+                                    </video>
+                                    <img class="slide" src="data/3.jpg" alt="slide 3">
+                                    <video class="slide" src="data/v2.mp4" muted playsinline preload="metadata">
+                                    </video>
+                                    <img class="slide" src="data/4.jpg" alt="slide 4">
+
+                                </div>
+                            </div>
+
+                            <div class="back-letter">
+                                <h3>Gửi Anh Bé của em 💌</h3>
+                                <p id="typeText">
+                                    Chúc anh luôn được yêu thương,
+                                    luôn vui vẻ và bình yên.
+                                    Cảm ơn vì đã xuất hiện
+                                    làm ngày hôm nay dễ thương hơn 💕
+                                    Em yêu anh!
+                                </p>
+                                <div class="signature" id="signature">
+                                    <div class="sign-text">Em bé của anh,</div>
+                                    <div class="sign-name">TTT.Linh</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <button id="backHome">← Quay lại</button>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
