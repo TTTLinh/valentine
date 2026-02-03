@@ -514,3 +514,27 @@ h1{
   font-size:22px;
   color:#ff3b6b;
 }
+.top-gif-wrapper {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+
+/* Chữ + mũi tên */
+.arrow-text {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+  font-weight: 600;
+  color: #ff79a6;
+  animation: bounce 1.2s infinite;
+}
+
+/* Animation nhún */
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, -8px); }
+}
